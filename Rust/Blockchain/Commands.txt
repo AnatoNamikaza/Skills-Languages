@@ -1,0 +1,4 @@
+cargo clean
+cargo update
+cargo build
+cargo run
