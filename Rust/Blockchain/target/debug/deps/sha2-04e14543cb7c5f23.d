@@ -1,0 +1,12 @@
+D:\GitHub\github\Skills-Languages\Rust\Blockchain\target\debug\deps\sha2-04e14543cb7c5f23.rmeta: C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\lib.rs C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\consts.rs C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha256.rs C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha512.rs C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha256\soft.rs C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha256\x86.rs C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha512\soft.rs C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha512\x86.rs
+
+D:\GitHub\github\Skills-Languages\Rust\Blockchain\target\debug\deps\sha2-04e14543cb7c5f23.d: C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\lib.rs C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\consts.rs C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha256.rs C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha512.rs C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha256\soft.rs C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha256\x86.rs C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha512\soft.rs C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha512\x86.rs
+
+C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\lib.rs:
+C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\consts.rs:
+C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha256.rs:
+C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha512.rs:
+C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha256\soft.rs:
+C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha256\x86.rs:
+C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha512\soft.rs:
+C:\Users\darkn\.cargo\registry\src\index.crates.io-6f17d22bba15001f\sha2-0.9.9\src\sha512\x86.rs:
