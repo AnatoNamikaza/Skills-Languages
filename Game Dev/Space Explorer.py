@@ -188,8 +188,8 @@ while True:
                 bullets = []
                 powerup_rect.centerx = random.randint(0, window_width)
                 powerup_rect.centery = -powerup_rect.height
-                powerup_timer = 0
-                running = True
+                powerup_timer = powerup_frequency
+                running = True  # Set running to True to restart the game
             elif event.key == pygame.K_q:
                 pygame.quit()
 
