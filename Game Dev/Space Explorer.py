@@ -44,7 +44,7 @@ powerup_rect = pygame.Rect(0, 0, 50, 50)  # Adjust the size as needed
 spaceship_rect = pygame.Rect(window_width // 2 - 25, window_height - 50, 50, 50)  # Adjust the size as needed
 
 # Load background music
-pygame.mixer.music.load('your_background_music.mp3')
+pygame.mixer.music.load('background music.mp3')
 pygame.mixer.music.play(-1)  # -1 means play indefinitely
 
 # Game loop
