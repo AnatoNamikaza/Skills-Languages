@@ -1,6 +1,5 @@
 import pygame
 import random
-import os
 
 # Initialize Pygame
 pygame.init()
@@ -35,6 +34,9 @@ powerup_rect = powerup_image.get_rect()
 powerup_rect.centerx = random.randint(0, window_width)
 powerup_rect.centery = random.randint(0, window_height)
 
+# Set up game variables
+player_speed = 5
+
 # Game loop
 running = True
 clock = pygame.time.Clock()
@@ -44,7 +46,28 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    # Get the keys that are currently held down
+    keys = pygame.key.get_pressed()
+
     # Update game logic
+    if keys[pygame.K_LEFT]:
+        spaceship_rect.x -= player_speed
+    if keys[pygame.K_RIGHT]:
+        spaceship_rect.x += player_speed
+    if keys[pygame.K_UP]:
+        spaceship_rect.y -= player_speed
+    if keys[pygame.K_DOWN]:
+        spaceship_rect.y += player_speed
+
+    # Move the obstacle (for demonstration purposes)
+    obstacle_rect.x += 3
+    if obstacle_rect.left > window_width:
+        obstacle_rect.right = 0
+        obstacle_rect.centery = random.randint(0, window_height)
+
+    # Check for collisions
+    if spaceship_rect.colliderect(obstacle_rect):
+        print("Collision with obstacle!")
 
     # Draw game elements
     window.fill(BLACK)
