@@ -44,7 +44,7 @@ powerup_rect = pygame.Rect(0, 0, 50, 50)  # Adjust the size as needed
 spaceship_rect = pygame.Rect(window_width // 2 - 25, window_height - 50, 50, 50)  # Adjust the size as needed
 
 # Load background music
-pygame.mixer.music.load('background music.mp3')
+pygame.mixer.music.load('your_background_music.mp3')
 pygame.mixer.music.play(-1)  # -1 means play indefinitely
 
 # Game loop
@@ -52,6 +52,8 @@ running = True
 clock = pygame.time.Clock()
 
 font = pygame.font.Font(None, 36)
+
+highest_score = 0  # Initialize the highest score
 
 while running:
     for event in pygame.event.get():
@@ -110,6 +112,7 @@ while running:
     if spaceship_rect.colliderect(powerup_rect):
         if lives < 4:
             lives += 1
+        powerup_rect.centerx = random.randint(0, window_width)
         powerup_rect.centery = -powerup_rect.height
         powerup_timer = powerup_frequency
 
@@ -175,11 +178,17 @@ while True:
             pygame.quit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_y:
+                # Update the highest score
+                if score > highest_score:
+                    highest_score = score
+                
                 # Restart the game
                 lives = 3
                 score = 0
                 obstacles = []
                 bullets = []
+                powerup_rect.centerx = random.randint(0, window_width)
+                powerup_rect.centery = -powerup_rect.height
                 powerup_timer = 0
                 running = True
             elif event.key == pygame.K_q:
