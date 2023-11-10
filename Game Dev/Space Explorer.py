@@ -4,6 +4,7 @@ import time
 
 # Initialize Pygame
 pygame.init()
+pygame.mixer.init()
 
 # Set up the game window
 window_width = 800
@@ -41,6 +42,10 @@ powerup_rect = pygame.Rect(0, 0, 50, 50)  # Adjust the size as needed
 
 # Initialize spaceship_rect at the bottom center
 spaceship_rect = pygame.Rect(window_width // 2 - 25, window_height - 50, 50, 50)  # Adjust the size as needed
+
+# Load background music
+pygame.mixer.music.load('background music.mp3')
+pygame.mixer.music.play(-1)  # -1 means play indefinitely
 
 # Game loop
 running = True
@@ -146,5 +151,38 @@ while running:
     if lives <= 0:
         running = False
 
-# Quit the game
-pygame.quit()
+# Stop the background music
+pygame.mixer.music.stop()
+
+# Game over menu
+while True:
+    window.fill(BLACK)
+
+    total_score_text = font.render(f"Total Score: {score}", True, WHITE)
+    highest_score_text = font.render(f"Highest Score: {highest_score}", True, WHITE)
+    play_again_text = font.render("Press 'Y' to play again", True, WHITE)
+    quit_text = font.render("Press 'Q' to quit", True, WHITE)
+
+    window.blit(total_score_text, (window_width // 2 - 100, window_height // 2 - 50))
+    window.blit(highest_score_text, (window_width // 2 - 120, window_height // 2))
+    window.blit(play_again_text, (window_width // 2 - 150, window_height // 2 + 50))
+    window.blit(quit_text, (window_width // 2 - 120, window_height // 2 + 100))
+
+    pygame.display.flip()
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_y:
+                # Restart the game
+                lives = 3
+                score = 0
+                obstacles = []
+                bullets = []
+                powerup_timer = 0
+                running = True
+            elif event.key == pygame.K_q:
+                pygame.quit()
+
+    clock.tick(60)
