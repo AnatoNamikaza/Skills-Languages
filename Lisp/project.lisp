@@ -1,19 +1,16 @@
-project
+; 1.) make one apply-sub function then use input 1 and input 2 to ensure that the lisp
+;     function works properly. the output should be the same as answer 1 and answer 2
 
 
-1.) make one apply-sub function then use input 1 and input 2 to ensure that the lisp
-    function works properly. the output should be the same as answer 1 and answer 2
+;    (apply-sub expr sub)
 
+;   input 1: (apply-sub '(p ?x (f ?y) bill) '((10 ?x) (20 ?x)))
+;  Answer 1: (p 10 (f 20) bill)
 
-   (apply-sub expr sub)
+;   input 2: (apply-sub '(p ?x (f ?y) bill) '(((g ?z) ?x) (gary ?y)))
+;  Answer 2: (p (g ?z) (f gary) bill)
 
-  input 1: (apply-sub '(p ?x (f ?y) bill) '((10 ?x) (20 ?x)))
- Answer 1: (p 10 (f 20) bill)
-
-  input 2: (apply-sub '(p ?x (f ?y) bill) '(((g ?z) ?x) (gary ?y)))
- Answer 2: (p (g ?z) (f gary) bill)
-
---------------------------------------------------------------------------------
+; --------------------------------------------------------------------------------
 
 (defun apply-sub (expr sub)
   (cond ((null expr) nil)
