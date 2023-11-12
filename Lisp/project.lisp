@@ -1,3 +1,5 @@
+; ------------------------- QUESTION -------------------------
+
 ; 1.) make one apply-sub function then use input 1 and input 2 to ensure that the lisp
 ;     function works properly. the output should be the same as answer 1 and answer 2
 
@@ -10,7 +12,7 @@
 ;   input 2: (apply-sub '(p ?x (f ?y) bill) '(((g ?z) ?x) (gary ?y)))
 ;  Answer 2: (p (g ?z) (f gary) bill)
 
-; --------------------------------------------------------------------------------
+; ------------------------- ANSWER -------------------------
 
 (defun apply-sub (expr sub)
   (cond ((null expr) nil)
@@ -42,26 +44,28 @@
 (format t "Answer 2: ~s~%" answer2)
 (format t "Are they equal? ~a~%" (equal (apply-sub input2 '(((g ?z) ?x) (gary ?y))) answer2))
 
----------------------------------------------------------------------------------------------
 
 
 
-2.)  make one compose function then use input 3, input 4 and input 5 to ensure that the lisp
-    function works properly. the output should be the same as answer 3, answer 4 and answer 5
+
+; ------------------------- QUESTION -------------------------
+
+; 2.)  make one compose function then use input 3, input 4 and input 5 to ensure that the lisp
+;     function works properly. the output should be the same as answer 3, answer 4 and answer 5
 
 
-   (compose sub1 sub2)
+;    (compose sub1 sub2)
 
-    input 3: (compose '((10 ?x)) '((20 ?x)))
-   Answer 3: ((10 ?x) (20 ?y))
+;     input 3: (compose '((10 ?x)) '((20 ?x)))
+;    Answer 3: ((10 ?x) (20 ?y))
 
-    input 4: (compose '((?x ?z) (?w ?y)) '((a ?x) (b ?v)))
-   Answer 4: ((a ?z) (?w ?y) (a ?x) (b ?v))
+;     input 4: (compose '((?x ?z) (?w ?y)) '((a ?x) (b ?v)))
+;    Answer 4: ((a ?z) (?w ?y) (a ?x) (b ?v))
 
-   input 5: (compose '(((g ?x ?y) ?z)) '((a ?x) (b ?y) (c ?w) (d ?z)))
-  Answer 5: (((g a b) ?z) (a ?x) (b ?y) (c ?w))
+;    input 5: (compose '(((g ?x ?y) ?z)) '((a ?x) (b ?y) (c ?w) (d ?z)))
+;   Answer 5: (((g a b) ?z) (a ?x) (b ?y) (c ?w))
 
--------------------------------------------------------------------------------------------------
+; ------------------------- ANSWER -------------------------
 
 (defun compose (sub1 sub2)
   (append (mapcar (lambda (s) (compose-sub s sub2)) sub1) sub2))
@@ -110,9 +114,3 @@
 (format t "Answer 5: ~s~%" answer5)
 (format t "Are they equal? ~a~%" (equal (compose input5 '((a ?x) (b ?y) (c ?w) (d ?z))) answer5))
 (terpri)
-
--------------------------------------------------------------------------------------------------
-   
-       
-
-
