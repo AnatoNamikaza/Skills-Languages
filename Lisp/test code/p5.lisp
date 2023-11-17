@@ -21,3 +21,50 @@
 
 ;  input 2: (apply-sub '(p ?x (f ?y) bill) '(((g ?z) ?x) (gary ?y)))
 ; Answer 2: (p (g ?z) (f gary) bill)
+
+;--------- Answer ---------
+
+(defun isvar (x)
+  (cond
+    ((null x) nil)
+    ((consp x) nil)
+    (t (equal "?" (substring (symbol-name x) 0 1)))))
+
+(defun apply-sub-rest (sub var rest)
+  (if (null sub)
+      (cons var (apply-sub rest sub))
+      (let* ((pair (car sub))
+             (replacement (car pair))
+             (replacement-var (cadr pair))
+             (remaining-sub (cdr sub)))
+        (if (equal var replacement-var)
+            (cons replacement (apply-sub rest remaining-sub))
+            (apply-sub-rest remaining-sub var rest)))))
+
+(defun apply-sub (expr sub)
+  (if (null expr)
+      nil
+      (let ((current (car expr))
+            (rest (cdr expr)))
+        (cond
+          ((isvar current)
+           (apply-sub-rest sub current rest))
+          ((consp current)
+           (cons (apply-sub current sub) (apply-sub rest sub)))
+          (t
+           (cons current (apply-sub rest sub)))))))
+
+
+;; Test with provided inputs
+
+(setq expr1 '(p ?x (f ?y) bill))
+(setq sub1 '((10 ?x) (20 ?y)))
+(setq result1 (apply-sub expr1 sub1))
+(print result1)
+; Expected Output: (p 10 (f 20) bill)
+
+(setq expr2 '(p ?x (f ?y) bill))
+(setq sub2 '(((g ?z) ?x) (gary ?y)))
+(setq result2 (apply-sub expr2 sub2))
+(print result2)
+; Expected Output: (p (g ?z) (f gary) bill)
