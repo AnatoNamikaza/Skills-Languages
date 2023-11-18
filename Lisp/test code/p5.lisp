@@ -30,41 +30,72 @@
     ((consp x) nil)
     (t (equal "?" (substring (symbol-name x) 0 1)))))
 
-(defun apply-sub-rest (sub var rest)
-  (if (null sub)
-      (cons var (apply-sub rest sub))
-      (let* ((pair (car sub))
-             (replacement (car pair))
-             (replacement-var (cadr pair))
-             (remaining-sub (cdr sub)))
-        (if (equal var replacement-var)
-            (cons replacement (apply-sub rest remaining-sub))
-            (apply-sub-rest remaining-sub var rest)))))
+;; () '((10 ?x))
+;; (p ?x) '((20 ?x))
+;; (p (f ?x) ?y) '((10 ?x) (20 ?y))
 
-(defun apply-sub (expr sub)
-  (if (null expr)
-      nil
-      (let ((current (car expr))
-            (rest (cdr expr)))
-        (cond
-          ((isvar current)
-           (apply-sub-rest sub current rest))
-          ((consp current)
-           (cons (apply-sub current sub) (apply-sub rest sub)))
-          (t
-           (cons current (apply-sub rest sub)))))))
+(defun reverse-symbol-table (symbol-table)
+  (let ((new-table '()))
+    (loop for s in symbol-table do
+         (setq new-table (append new-table (list (reverse s))))
+         )
+    new-table))
+
+;;(print (reverse-symbol-table '((1 ?x) (2 ?y))))
+(defun apply-sub (exp symbol-table)
+  (let ((reverse-symbol-table (reverse-symbol-table symbol-table)) (result '()))
+    (loop for e in exp do
+         (if (atom e)
+           (if (assoc e reverse-symbol-table)
+               (setq result (append result (list (car (reverse (assoc e reverse-symbol-table))))))
+               (setq result (append result (list e))))
+           (setq result (append result (list (apply-sub e symbol-table))))))
+    result))
 
 
-;; Test with provided inputs
+(print (apply-sub '(p ?x (f ?y) bill) '((10 ?x) (20 ?y))))
+(print (apply-sub '(p ?x (f ?y) bill) '(((g ?z) ?x) (gary ?y))))
+(print (apply-sub '(p ?v (f ?w) bill) '(((great ?z) ?v) (success ?w))))
+(print (apply-sub '(p ?w(f ?v) bill) '(((great ?z) ?v) (success ?w))))
 
-(setq expr1 '(p ?x (f ?y) bill))
-(setq sub1 '((10 ?x) (20 ?y)))
-(setq result1 (apply-sub expr1 sub1))
-(print result1)
-; Expected Output: (p 10 (f 20) bill)
+(print (apply-sub '((?x ?z) (?w ?y)) '((a ?x) (b ?v))))
 
-(setq expr2 '(p ?x (f ?y) bill))
-(setq sub2 '(((g ?z) ?x) (gary ?y)))
-(setq result2 (apply-sub expr2 sub2))
-(print result2)
+
+;; In the input `(compose '(((g ?x ?y ?w) ?z)) '((a ?x) (b ?y) (c ?w) (d ?z)))`, the variable `?z` stayed the same in the output because it didn't have a direct substitution in the second substitution list.
+
+;; Let's break it down step by step:
+
+;; 1. The first substitution list `(((g ?x ?y ?w) ?z))` indicates that the variable `?z` should be replaced by the result of the expression `(g ?x ?y ?w)`.
+
+;; 2. The second substitution list `((a ?x) (b ?y) (c ?w) (d ?z))` provides substitutions for `?x`, `?y`, `?w`, and `?z`. However, it doesn't provide a direct substitution for `?z`. Instead, it provides a substitution for `?x`, `?y`, and `?w`.
+
+;; 3. When the `compose` function combines these two substitution lists, it correctly substitutes `?x`, `?y`, and `?w` based on the second substitution list, but it leaves `?z` unchanged because there is no direct substitution for `?z` in the second list.
+
+;; As a result, `?z` remains the same in the final composed substitution list, which is `(((g a b c) ?z) (a ?x) (b ?y) (c ?w))`.
+
+;; that is why (compose '(((g ?x ?y) ?z)) '((a ?x) (b ?y) (c ?w) (d ?z))) results in (((g a b) ?z) (a ?x) (b ?y) (c ?w))
+
+;; but (compose '(((g ?x ?y ?w) ?z)) '((a ?x) (b ?y) (c ?w) (d ?z))) results in (((g a b c) ?z) (a ?x) (b ?y) (c ?w))
+
+
+;  input 1: (apply-sub '(p ?x (f ?y) bill) '((10 ?x) (20 ?y)))
+; Answer 1: (p 10 (f 20) bill)
+
+;  input 2: (apply-sub '(p ?x (f ?y) bill) '(((g ?z) ?x) (gary ?y)))
+; Answer 2: (p (g ?z) (f gary) bill)
+
+
+
+;; ;; Test with provided inputs
+
+;; (setq expr1 '(p ?x (f ?y) bill))
+;; (setq sub1 '((10 ?x) (20 ?y)))
+;; (setq result1 (apply-sub expr1 sub1))
+;; (print result1)
+;; ; Expected Output: (p 10 (f 20) bill)
+
+;; (setq expr2 '(p ?x (f ?y) bill))
+;; (setq sub2 '(((g ?z) ?x) (gary ?y)))
+;; (setq result2 (apply-sub expr2 sub2))
+;; (print result2)
 ; Expected Output: (p (g ?z) (f gary) bill)
